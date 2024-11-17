@@ -25,12 +25,30 @@ argmax:
     li t6, 1
     blt a1, t6, handle_error
 
-    lw t0, 0(a0)
+    lw t0, 0(a0)        # current maximum
+    li t1, 0            # position of maximum
 
-    li t1, 0
-    li t2, 1
+    li t2, 0            # counter
+
+    addi a0, a0, 4      # array index++
+    addi t2, t2, 1      # counter++
+    beq t2, a1, finish  # If array length == 1, finish
+
 loop_start:
     # TODO: Add your own implementation
+    lw t3, 0(a0)        # Get a[i]
+    ble t3, t0, next    # If a[i] <= current maximum, not thing happen
+    mv t0, t3           # Update current maximum
+    mv t1, t2           # Update position of maximum
+
+next:
+    addi a0, a0, 4          # array index++
+    addi t2, t2, 1          # counter++
+    bne t2, a1, loop_start  # If counter != array length, loop
+
+finish:
+    mv a0, t1
+    ret
 
 handle_error:
     li a0, 36
