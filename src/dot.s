@@ -31,12 +31,36 @@ dot:
     blt a3, t0, error_terminate   
     blt a4, t0, error_terminate  
 
-    li t0, 0            
-    li t1, 0         
+    li t0, 0        # dot product value
+    li t1, 0        # counter 
+
+    slli a3, a3, 2  # a3 * 4 (stride0 * 4)
+    slli a4, a4, 2  # a4 * 4 (stride1 * 4)
 
 loop_start:
-    bge t1, a2, loop_end
     # TODO: Add your own implementation
+    lw t2, 0(a0)    # Get arr0[i * stride0]
+    lw t3, 0(a1)    # Get arr1[i * stride1]
+    li t4, 0        # sum
+
+multiply_loop_start:
+    andi t5, t3, 1                  # Get LSB of t3
+    beqz t5, multiply_loop_next     # If the LSB of t3 == 0, do nothing
+    add t4, t4, t2                  # sum += t2
+
+multiply_loop_next:
+    slli t2, t2, 1                  # t2 << 1
+    srli t3, t3, 1                  # t3 >> 1
+    bnez t3, multiply_loop_start    # If t3 != 0, loop
+
+multiply_loop_end:
+    add t0, t0, t4          # dot product value += sum
+
+loop_next:
+    add a0, a0, a3          # array0 index += stride0
+    add a1, a1, a4          # array1 index += stride1
+    addi t1, t1, 1          # counter++
+    bne t1, a2, loop_start  # If counter != array length, loop
 
 loop_end:
     mv a0, t0
