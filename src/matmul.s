@@ -44,8 +44,7 @@ matmul:
 
     # Prologue
     addi sp, sp, -28
-    sw ra, 0(sp)
-    
+    sw ra, 0(sp)   
     sw s0, 4(sp)
     sw s1, 8(sp)
     sw s2, 12(sp)
@@ -61,9 +60,9 @@ matmul:
     
 outer_loop_start:
     #s0 is going to be the loop counter for the rows in A
-    li s1, 0
-    mv s4, a3
-    blt s0, a1, inner_loop_start
+    li s1, 0                        # inner loop counter = 0 (initialize to 0)
+    mv s4, a3                       # incrementing matrix B pointer = a3 (initialize to first column)
+    blt s0, a1, inner_loop_start    # If outer loop counter < Row count of M0, continue
 
     j outer_loop_end
     
@@ -77,7 +76,7 @@ inner_loop_start:
 #   a4 (int)  is the stride of arr1 = for B, stride = len(rows) - 1
 # Returns:
 #   a0 (int)  is the dot product of arr0 and arr1
-    beq s1, a5, inner_loop_end
+    beq s1, a5, inner_loop_end      # If inner loop counter == Column count of M1, end
 
     addi sp, sp, -24
     sw a0, 0(sp)
@@ -106,16 +105,33 @@ inner_loop_start:
     addi sp, sp, 24
     
     sw t0, 0(s2)
-    addi s2, s2, 4 # Incrememtning pointer for result matrix
+    addi s2, s2, 4  # Incrememtning pointer for result matrix
     
     li t1, 4
-    add s4, s4, t1 # incrememtning the column on Matrix B
+    add s4, s4, t1  # Incrememtning pointer for M1 (move to next column)
     
-    addi s1, s1, 1
+    addi s1, s1, 1  # inner loop counter += 1
     j inner_loop_start
     
 inner_loop_end:
     # TODO: Add your own implementation
+    mv t2, a2           # t2 = column count of M0
+    slli t2, t2, 2      # t2 *= 4 (each value is 4 bytes)
+    add s3, s3, t2      # Incrememtning pointer for M0 (move to next row)
+
+    addi s0, s0, 1      # outer loop counter += 1
+    j outer_loop_start
+
+outer_loop_end:
+    lw ra, 0(sp)   
+    lw s0, 4(sp)
+    lw s1, 8(sp)
+    lw s2, 12(sp)
+    lw s3, 16(sp)
+    lw s4, 20(sp)
+    lw s5, 24(sp)
+    addi sp, sp, 28
+    jr ra
 
 error:
     li a0, 38
