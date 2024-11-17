@@ -25,10 +25,20 @@
 relu:
     li t0, 1             
     blt a1, t0, error     
-    li t1, 0             
+    li t1, 0    # 0 for sw
+    li t2, 0    # counter
 
 loop_start:
     # TODO: Add your own implementation
+    lw t3, 0(a0)    # get a[i]
+    bgez t3, next   # if a[i] >= 0, not thing happen
+    sw t1, 0(a0)    # if a[i] < 0, a[i] = 0
+    
+next:
+    addi a0, a0, 4  # array index++
+    addi t2, t2, 1  # counter++
+    bne t2, a1, loop_start  # check if counter == Number of elements in array
+    ret
 
 error:
     li a0, 36          
