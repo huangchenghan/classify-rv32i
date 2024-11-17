@@ -37,7 +37,7 @@ argmax:
 loop_start:
     # TODO: Add your own implementation
     lw t3, 0(a0)        # Get a[i]
-    ble t3, t0, next    # If a[i] <= current maximum, not thing happen
+    ble t3, t0, next    # If a[i] <= current maximum, do nothing
     mv t0, t3           # Update current maximum
     mv t1, t2           # Update position of maximum
 

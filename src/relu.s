@@ -32,7 +32,7 @@ relu:
 loop_start:
     # TODO: Add your own implementation
     lw t3, 0(a0)    # Get a[i]
-    bgez t3, next   # If a[i] >= 0, not thing happen
+    bgez t3, next   # If a[i] >= 0, do nothing
     sw t1, 0(a0)    # If a[i] < 0, a[i] = 0
     
 next:
