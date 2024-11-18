@@ -3,6 +3,8 @@
 ## Part A: Mathematical Functions
 
 ### Task 1: ReLU
+The purpose of the ReLU function is to convert negative values in an array to 0.  
+In my implementation, I use a loop to iterate through all the values in the array and replace the negative values with 0.
 ```s
     li t1, 0    # 0 for sw
     li t2, 0    # counter
@@ -21,6 +23,8 @@ next:
 ```
 
 ### Task 2: ArgMax
+The purpose of the ArgMax function is to find the index of the maximum value in a vector (1D array).  
+In my implementation, I use a loop to iterate through all the values in the array, keeping track of the current maximum value and its index at each step.
 ```s
     lw t0, 0(a0)        # current maximum
     li t1, 0            # position of maximum
@@ -49,6 +53,8 @@ finish:
 ```
 
 ### Task 3.1: Dot Product
+The purpose of the dot product function is to compute the dot product of two vectors (1D array).  
+In my implementation, I use a loop to iterate through all the values in two arrays (a0 and a1) and apply a multiplier to compute a0[i]*a1[i].
 ```s
     li t0, 0        # dot product value
     li t1, 0        # counter 
@@ -87,6 +93,11 @@ loop_end:
 ```
 
 ### Task 3.2: Matrix Multiplication
+In matmul.s, we need to implement Matrix Multiplication. Since most of the content in matmul.s is already completed, we only need to implement the sections under the labels inner_loop_end and outer_loop_end.
+
+In inner_loop_end, since the pointer for M0 is currently pointing to a row that has finished its calculations, we need to move the pointer to the next row.
+
+In outer_loop_end, we need to complete the epilogue section.
 ```s
 inner_loop_end:
     # TODO: Add your own implementation
@@ -110,6 +121,7 @@ outer_loop_end:
 ```
 
 ## Part B: File Operations and Main
+In Part B, since most of the content in read_matrix.s, write_matrix.s, and classify.s is already completed, we only need to replace the mul instruction with our own multiplier implementation.
 
 ### Task 1: Read Matrix
 ```s
