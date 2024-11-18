@@ -64,6 +64,21 @@ write_matrix:
     # mul s4, s2, s3   # s4 = total elements
     # FIXME: Replace 'mul' with your own implementation
 
+    # ################ my implementation ################
+my_mul:
+    li s4, 0        # sum
+
+multiply_loop_start:
+    andi t1, s3, 1                  # Get LSB of s3
+    beqz t1, multiply_loop_next     # If the LSB of s3 == 0, do nothing
+    add s4, s4, s2                  # sum += s2
+
+multiply_loop_next:
+    slli s2, s2, 1                  # s2 << 1
+    srli s3, s3, 1                  # s3 >> 1
+    bnez s3, multiply_loop_start    # If s3 != 0, loop
+    # ################ my implementation ################
+
     # write matrix data to file
     mv a0, s0
     mv a1, s1        # matrix data pointer
