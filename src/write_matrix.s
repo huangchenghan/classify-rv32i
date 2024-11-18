@@ -63,7 +63,6 @@ write_matrix:
 
     # mul s4, s2, s3   # s4 = total elements
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul:
     li s4, 0        # sum

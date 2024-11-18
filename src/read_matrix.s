@@ -76,7 +76,6 @@ read_matrix:
 
     # mul s1, t1, t2   # s1 is number of elements
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul:
     li s1, 0        # sum

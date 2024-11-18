@@ -169,7 +169,6 @@ classify:
 
     # mul a0, t0, t1 
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul_1:
     li a0, 0        # sum
@@ -224,7 +223,6 @@ multiply_loop_next_1:
 
     # mul a1, t0, t1 # length of h array and set it as second argument
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul_2:
     li a1, 0        # sum
@@ -263,7 +261,6 @@ multiply_loop_next_2:
 
     # mul a0, t0, t1 
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul_3:
     li a0, 0        # sum
@@ -341,7 +338,6 @@ multiply_loop_next_3:
 
     # mul a1, t0, t1 # load length of array into second arg
     # FIXME: Replace 'mul' with your own implementation
-
     # ################ my implementation ################
 my_mul_4:
     li a1, 0        # sum
