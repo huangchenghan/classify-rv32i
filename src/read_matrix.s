@@ -77,6 +77,21 @@ read_matrix:
     # mul s1, t1, t2   # s1 is number of elements
     # FIXME: Replace 'mul' with your own implementation
 
+    # ################ my implementation ################
+my_mul:
+    li s1, 0        # sum
+
+multiply_loop_start:
+    andi t3, t2, 1                  # Get LSB of t2
+    beqz t3, multiply_loop_next     # If the LSB of t2 == 0, do nothing
+    add s1, s1, t1                  # sum += t1
+
+multiply_loop_next:
+    slli t1, t1, 1                  # t1 << 1
+    srli t2, t2, 1                  # t2 >> 1
+    bnez t2, multiply_loop_start    # If t2 != 0, loop
+    # ################ my implementation ################
+
     slli t3, s1, 2
     sw t3, 24(sp)    # size in bytes
 
