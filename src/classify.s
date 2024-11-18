@@ -166,7 +166,25 @@ classify:
     
     lw t0, 0(s3)
     lw t1, 0(s8)
-    # mul a0, t0, t1 # FIXME: Replace 'mul' with your own implementation
+
+    # mul a0, t0, t1 
+    # FIXME: Replace 'mul' with your own implementation
+
+    # ################ my implementation ################
+my_mul_1:
+    li a0, 0        # sum
+
+multiply_loop_start_1:
+    andi t2, t1, 1                  # Get LSB of t1
+    beqz t2, multiply_loop_next_1   # If the LSB of t1 == 0, do nothing
+    add a0, a0, t0                  # sum += t0
+
+multiply_loop_next_1:
+    slli t0, t0, 1                  # t0 << 1
+    srli t1, t1, 1                  # t1 >> 1
+    bnez t1, multiply_loop_start_1  # If t1 != 0, loop
+    # ################ my implementation ################
+
     slli a0, a0, 2
     jal malloc 
     beq a0, x0, error_malloc
@@ -203,8 +221,24 @@ classify:
     mv a0, s9 # move h to the first argument
     lw t0, 0(s3)
     lw t1, 0(s8)
+
     # mul a1, t0, t1 # length of h array and set it as second argument
     # FIXME: Replace 'mul' with your own implementation
+
+    # ################ my implementation ################
+my_mul_2:
+    li a1, 0        # sum
+
+multiply_loop_start_2:
+    andi t2, t1, 1                  # Get LSB of t1
+    beqz t2, multiply_loop_next_2   # If the LSB of t1 == 0, do nothing
+    add a1, a1, t0                  # sum += t0
+
+multiply_loop_next_2:
+    slli t0, t0, 1                  # t0 << 1
+    srli t1, t1, 1                  # t1 >> 1
+    bnez t1, multiply_loop_start_2  # If t1 != 0, loop
+    # ################ my implementation ################
     
     jal relu
     
@@ -226,7 +260,25 @@ classify:
     
     lw t0, 0(s3)
     lw t1, 0(s6)
-    # mul a0, t0, t1 # FIXME: Replace 'mul' with your own implementation
+
+    # mul a0, t0, t1 
+    # FIXME: Replace 'mul' with your own implementation
+
+    # ################ my implementation ################
+my_mul_3:
+    li a0, 0        # sum
+
+multiply_loop_start_3:
+    andi t2, t1, 1                  # Get LSB of t1
+    beqz t2, multiply_loop_next_3   # If the LSB of t1 == 0, do nothing
+    add a0, a0, t0                  # sum += t0
+
+multiply_loop_next_3:
+    slli t0, t0, 1                  # t0 << 1
+    srli t1, t1, 1                  # t1 >> 1
+    bnez t1, multiply_loop_start_3  # If t1 != 0, loop
+    # ################ my implementation ################
+
     slli a0, a0, 2
     jal malloc 
     beq a0, x0, error_malloc
@@ -286,8 +338,24 @@ classify:
     mv a0, s10 # load o array into first arg
     lw t0, 0(s3)
     lw t1, 0(s6)
-    mul a1, t0, t1 # load length of array into second arg
+
+    # mul a1, t0, t1 # load length of array into second arg
     # FIXME: Replace 'mul' with your own implementation
+
+    # ################ my implementation ################
+my_mul_4:
+    li a1, 0        # sum
+
+multiply_loop_start_4:
+    andi t2, t1, 1                  # Get LSB of t1
+    beqz t2, multiply_loop_next_4   # If the LSB of t1 == 0, do nothing
+    add a1, a1, t0                  # sum += t0
+
+multiply_loop_next_4:
+    slli t0, t0, 1                  # t0 << 1
+    srli t1, t1, 1                  # t1 >> 1
+    bnez t1, multiply_loop_start_4  # If t1 != 0, loop
+    # ################ my implementation ################
     
     jal argmax
     
